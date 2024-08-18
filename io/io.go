@@ -8,6 +8,8 @@ import (
 )
 
 var (
+	//file, _ = os.Open("input.txt") // 동일 경로의 input.txt 파일을 엽니다.
+	//sc      = bufio.NewScanner(file)
 	sc   = bufio.NewScanner(os.Stdin)
 	wr   = bufio.NewWriter(os.Stdout)
 	size int
