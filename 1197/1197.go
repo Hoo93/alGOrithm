@@ -9,41 +9,35 @@ import (
 )
 
 var (
-	file, _ = os.Open("input.txt") // 동일 경로의 input.txt 파일을 엽니다.
-	sc      = bufio.NewScanner(file)
-	//sc   = bufio.NewScanner(os.Stdin)
+	//file, _ = os.Open("input.txt") // 동일 경로의 input.txt 파일을 엽니다.
+	//sc      = bufio.NewScanner(file)
+	sc    = bufio.NewScanner(os.Stdin)
 	wr    = bufio.NewWriter(os.Stdout)
 	V, E  int
-	edges [][]int
+	edges map[int][]Edge
 )
 
 type Edge struct {
-	value     int
-	startNode int
-	endNode   int
+	value   int
+	endNode int
 }
 
 type PriorityQueue []*Edge
 
 func (pq PriorityQueue) Len() int {
-	fmt.Println("Len Called")
 	return len(pq)
 }
 
+// value 가 작은 값이 우선순위가 높음
 func (pq PriorityQueue) Less(i, j int) bool {
-	fmt.Println("Less Called")
-	fmt.Println(i, j)
-	fmt.Println(pq.Len())
 	return pq[i].value < pq[j].value
 }
 
 func (pq PriorityQueue) Swap(i, j int) {
-	fmt.Println("Swap Called")
 	pq[i], pq[j] = pq[j], pq[i]
 }
 
 func (pq *PriorityQueue) Push(x any) {
-	fmt.Println("Push Called")
 	item := x.(*Edge)
 	*pq = append(*pq, item)
 }
@@ -59,20 +53,46 @@ func (pq *PriorityQueue) Pop() any {
 
 func main() {
 	input()
+	solve()
 }
 
-func simulateQueue() {
+func solve() {
+
+	// 우선순위 큐 시작
 	pq := make(PriorityQueue, 0)
 	heap.Init(&pq)
 
-	heap.Push(&pq, &Edge{value: 3, startNode: 1, endNode: 2})
-	heap.Push(&pq, &Edge{value: 1, startNode: 2, endNode: 3})
-	heap.Push(&pq, &Edge{value: 3, startNode: 3, endNode: 4})
+	// 방문 확인
+	issued := map[int]bool{}
 
-	for pq.Len() > 0 {
-		item := heap.Pop(&pq).(*Edge)
-		fmt.Println(item)
+	// 결과값
+	result := 0
+
+	// PRIM Algorithm start at vertex 1
+	issued[1] = true
+	for _, edge := range edges[1] {
+		heap.Push(&pq, &edge)
 	}
+
+	for len(issued) < V {
+		// 최소값을 가지는 edge 를 찾는다.
+		minEdge := heap.Pop(&pq).(*Edge)
+		if issued[minEdge.endNode] {
+			continue
+		}
+
+		issued[minEdge.endNode] = true
+		result += minEdge.value
+		for _, edge := range edges[minEdge.endNode] {
+			if issued[edge.endNode] {
+				continue
+			}
+			heap.Push(&pq, &edge)
+		}
+	}
+
+	fmt.Fprintln(wr, result)
+	wr.Flush()
 }
 
 func input() {
@@ -81,14 +101,17 @@ func input() {
 
 	// 배열에 숫자 입력 받기
 	V, E = nextInt(), nextInt()
-	//board = make([][]int, N)
-	//for i := 0; i < N; i++ {
-	//	board[i] = make([]int, M)
-	//	for j := 0; j < M; j++ {
-	//		board[i][j] = nextInt()
-	//	}
-	//}
 
+	edges = make(map[int][]Edge)
+	for i := 1; i <= V; i++ {
+		edges[i] = make([]Edge, 0)
+	}
+
+	for i := 0; i < E; i++ {
+		node1, node2, value := nextInt(), nextInt(), nextInt()
+		edges[node1] = append(edges[node1], Edge{value: value, endNode: node2})
+		edges[node2] = append(edges[node2], Edge{value: value, endNode: node1})
+	}
 }
 
 // 입력 받은 숫자를 Int 로 형변환
