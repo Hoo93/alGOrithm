@@ -70,13 +70,13 @@ func solve() {
 
 	// PRIM Algorithm start at vertex 1
 	issued[1] = true
-	edges2 := []Edge{{value: 3, endNode: 2}, {value: 6, endNode: 4}, {value: 9, endNode: 5}}
 
 	//for i := 0 ; i < len(edges[1]); i++ {
-	for _, edge := range edges2 {
+	for _, edge := range edges[1] {
 		// 1.19.13v 에서는 반복문을 순회하는 동안 edge 의 주소가 같음
 		// 1.22.5v 에서는 반복문을 순회하는 동안 edge 의 주소가 다름
 		// 1.19.13v 에서 주소가 같으니까 전부다 {9 5} {9 5} {9 5} 로 들어가게 됨
+		// 기대 결과 : {3 2} {6 4} {9 5}
 		heap.Push(&pq, &edge)
 	}
 	for i := 0; i < len(pq); i++ {
@@ -84,9 +84,6 @@ func solve() {
 	}
 
 	for len(issued) < V {
-		// 문제의 부분
-		// go 1.19.13v 에서는 priority queue 의 상태가 {9 5} {9 5} {9 5} 임 {value, endNode}
-		// go 1.22.5v 에서는 priority queue 의 상태가 {3 2} {6 4} {9 5} 임 {value, endNode} <- 원하는 동작
 		// 최소값을 가지는 edge 를 찾는다.
 		minEdge := heap.Pop(&pq).(*Edge)
 		if issued[minEdge.endNode] {
