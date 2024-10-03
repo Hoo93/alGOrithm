@@ -20,10 +20,28 @@ for i in itertools.count(1):
 
 
 # pad 함수
-
 target = '123'
 print(target.zfill(5))  # 00123
 print(target.rjust(5, 'Z'))  # ZZ123
 print(target.ljust(5, 'Z'))  # 123ZZ
 
+#dict
+mem = dict([('a', 1), ('b', 2), ('c', 3)])
+print(mem.keys())
+print(mem.values())
+print(mem.items())
 
+mem['d'] = 4
+
+print(mem.popitem()) # ('d', 4) 가장 최근에 삽입한 값 반환
+print(mem.pop('a'))
+print(mem.popitem())
+
+# set // add remove
+s = set([2, 1, 3])
+s.add(4)
+s.add(-1)
+
+s.remove(2)
+for i in s:
+    print(i)
