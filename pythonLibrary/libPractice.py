@@ -19,3 +19,11 @@ for i in itertools.count(1):
         break
 
 
+# pad 함수
+
+target = '123'
+print(target.zfill(5))  # 00123
+print(target.rjust(5, 'Z'))  # ZZ123
+print(target.ljust(5, 'Z'))  # 123ZZ
+
+
