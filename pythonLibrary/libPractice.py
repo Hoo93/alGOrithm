@@ -45,3 +45,8 @@ s.add(-1)
 s.remove(2)
 for i in s:
     print(i)
+
+s2 = set([3, 4, 5])
+print(s.union(s2))
+print(s.intersection(s2))
+print(s.difference(s2))
