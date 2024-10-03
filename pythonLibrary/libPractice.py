@@ -35,6 +35,8 @@ print(mem.popitem())  # ('d', 4) 가장 최근에 삽입한 값 반환
 print(mem.pop('a'))
 print(mem.popitem())
 
+print(mem['not exists'])  # KeyError 발생
+
 # set // add remove
 s = set([2, 1, 3])
 s.add(4)
@@ -58,7 +60,7 @@ for i in s3:
 print(s3.__contains__((1, 2)))
 
 # set 속성이 list 인 경우 // 애초에 불가능 ( unhashable )
-s4 = set([[1, 2], [3, 4], [5, 6]])
-s4.add([1, 2])
-for i in s4:
-    print(i)
+# s4 = set([[1, 2], [3, 4], [5, 6]])
+# s4.add([1, 2])
+# for i in s4:
+#     print(i)
