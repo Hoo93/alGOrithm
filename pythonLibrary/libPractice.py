@@ -35,7 +35,11 @@ print(mem.popitem())  # ('d', 4) 가장 최근에 삽입한 값 반환
 print(mem.pop('a'))
 print(mem.popitem())
 
-print(mem['not exists'])  # KeyError 발생
+# print(mem['not exists'])  # KeyError 발생
+
+# dict 의 key 가 tuple 인 경우 / dick 의 key 로 tuple 도 가능하다.
+mem2 = dict([((1, 2), 3), ((4, 5), 6)])
+print('123123',mem2[(1, 2)])
 
 # set // add remove
 s = set([2, 1, 3])
@@ -64,3 +68,8 @@ print(s3.__contains__((1, 2)))
 # s4.add([1, 2])
 # for i in s4:
 #     print(i)
+
+# gcd lcm
+import math
+print(math.gcd(12, 18))
+print(math.lcm(12, 18))
