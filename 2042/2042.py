@@ -55,8 +55,8 @@ class SegmentTree:
     # format = cmd + opt + L
 
 
-#file = open('input.txt', 'r')
-#input = file.readline
+# file = open('input.txt', 'r')
+# input = file.readline
 
 input = sys.stdin.readline
 
@@ -71,7 +71,7 @@ for _ in range(M + K):
     if inst == 1:
         segmentTree.update(argu_1 - 1, argu_2)
     elif inst == 2:
-        result.append(segmentTree.query(argu_1 - 1, argu_2-1))
+        result.append(segmentTree.query(argu_1 - 1, argu_2 - 1))
 
 for i in result:
     print(i)
