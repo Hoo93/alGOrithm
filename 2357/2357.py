@@ -1,13 +1,13 @@
 import sys
+sys.setrecursionlimit(10000)
 
 # format = cmd + opt + L
 
-file = open('input.txt', 'r')
-input = file.readline
+#file = open('input.txt', 'r')
+#input = file.readline
+input = sys.stdin.readline
 
-# input = sys.stdin.readline
-
-INF = 1e9
+INF = 1_000_000_001
 
 N, M = map(int, input().split())
 
